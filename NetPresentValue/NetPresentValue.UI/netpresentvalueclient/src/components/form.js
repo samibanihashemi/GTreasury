@@ -55,7 +55,6 @@ export default function DataEntryForm() {
             });
             return false;
         }
-
     }
 
     const fetchPost = async () => {
@@ -144,70 +143,78 @@ export default function DataEntryForm() {
     const divStyle = {
         overflowX: 'scroll',
         border: '1px solid',
-        width: '50%',
+        width: '100%',
         hight: '100%',
-        float: 'left',
+        position: 'relative',
+        padding: '50px'
+    };
+
+    const formStyle = {
+        border: '1px solid',
+        width: '50%',
         position: 'relative',
         padding: '50px'
     };
 
     return (
         <div style={divStyle}>
-            <h4>Net Present Values</h4>
             {formErrors.submitError && (
                 <p className="text-danger">{formErrors.submitError}</p>
             )}
-            <Form>
-                <Form.Group>
-                    <Form.Label>Enter the cash flows separated by comma:</Form.Label>
-                    <Form.Control
-                        as="textarea" rows="3"
-                        type="text"
-                        placeholder="cash flows separated by comma"
-                        onChange={e => validateCashValues(e.target.value) ? setCashValues(e.target.value) : null}
-                        value={cashValues}
-                    />
-                    {formErrors.cashValuesError && (
-                        <p className="text-danger">{formErrors.cashValuesError}</p>
-                    )}
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Lower Bound Discount Rate:</Form.Label>
-                    <Form.Control type="number"
-                        placeholder="Lower Bound Discount Rate"
-                        onChange={e => validateLowBoundDiscRate(e.target.value) ? setLowBoundDiscRate(Number(e.target.value)) : null}
-                        value={lowBoundDiscRate}
-                    />
-                    {formErrors.lowBoundDiscRateError && (
-                        <p className="text-danger">{formErrors.lowBoundDiscRateError}</p>
-                    )}
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Upper Bound Discount Rate:</Form.Label>
-                    <Form.Control type="number"
-                        placeholder="Upper Bound Discount Rate"
-                        onChange={e => validateUpBoundDiscRate(e.target.value) ? setUpBoundDiscRate(Number(e.target.value)) : null}
-                        value={upBoundDiscRate}
-                    />
-                    {formErrors.upBoundDiscRateError && (
-                        <p className="text-danger">{formErrors.upBoundDiscRateError}</p>
-                    )}
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Discount Rate Increment:</Form.Label>
-                    <Form.Control type="number"
-                        placeholder="Discount Rate Increment"
-                        onChange={e => validateDiscRateIncrement(e.target.value) ? setDiscRateIncrement(Number(e.target.value)) : null}
-                        value={discRateIncrement}
-                    />
-                    {formErrors.discRateIncrementError && (
-                        <p className="text-danger">{formErrors.discRateIncrementError}</p>
-                    )}
-                </Form.Group>
-                <Button variant="primary" onClick={callCalculate}>
-                    Click here to submit form
-                </Button>
-            </Form>
+            <div style={formStyle}>
+                <h4>Net Present Values</h4>
+                <Form>
+                    <Form.Group>
+                        <Form.Label>Enter the cash flows separated by comma:</Form.Label>
+                        <Form.Control
+                            as="textarea" rows="3"
+                            type="text"
+                            placeholder="cash flows separated by comma"
+                            onChange={e => validateCashValues(e.target.value) ? setCashValues(e.target.value) : null}
+                            value={cashValues}
+                        />
+                        {formErrors.cashValuesError && (
+                            <p className="text-danger">{formErrors.cashValuesError}</p>
+                        )}
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Lower Bound Discount Rate:</Form.Label>
+                        <Form.Control type="number"
+                            placeholder="Lower Bound Discount Rate"
+                            onChange={e => validateLowBoundDiscRate(e.target.value) ? setLowBoundDiscRate(Number(e.target.value)) : null}
+                            value={lowBoundDiscRate}
+                        />
+                        {formErrors.lowBoundDiscRateError && (
+                            <p className="text-danger">{formErrors.lowBoundDiscRateError}</p>
+                        )}
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Upper Bound Discount Rate:</Form.Label>
+                        <Form.Control type="number"
+                            placeholder="Upper Bound Discount Rate"
+                            onChange={e => validateUpBoundDiscRate(e.target.value) ? setUpBoundDiscRate(Number(e.target.value)) : null}
+                            value={upBoundDiscRate}
+                        />
+                        {formErrors.upBoundDiscRateError && (
+                            <p className="text-danger">{formErrors.upBoundDiscRateError}</p>
+                        )}
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Discount Rate Increment:</Form.Label>
+                        <Form.Control type="number"
+                            placeholder="Discount Rate Increment"
+                            onChange={e => validateDiscRateIncrement(e.target.value) ? setDiscRateIncrement(Number(e.target.value)) : null}
+                            value={discRateIncrement}
+                        />
+                        {formErrors.discRateIncrementError && (
+                            <p className="text-danger">{formErrors.discRateIncrementError}</p>
+                        )}
+                    </Form.Group>
+                    <Button variant="primary" onClick={callCalculate}>
+                        Click here to submit form
+                    </Button>
+                </Form>
+            </div>
             <p>
                 <h4>Calculted results</h4>
             </p>
