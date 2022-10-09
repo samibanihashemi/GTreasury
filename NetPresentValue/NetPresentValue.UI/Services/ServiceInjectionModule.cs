@@ -2,7 +2,7 @@
 using NetPresentValue.Service.CalcUtilty;
 using NetPresentValue.UI;
 
-namespace GlobalWeatherReact.Services
+namespace NetPresentValue.UI.Services
 {
     public static class ServiceInjectionModule
     {

@@ -6,13 +6,15 @@ import CalculationResult from './calculations';
 import axios from "axios";
 
 export default function DataEntryForm() {
+    const maxColumns = 30;
+    const maxCashflows = 10;
     const [cashValues, setCashValues] = useState("");
     const [lowBoundDiscRate, setLowBoundDiscRate] = useState(1);
     const [upBoundDiscRate, setUpBoundDiscRate] = useState(20);
     const [discRateIncrement, setDiscRateIncrement] = useState(2);
     const [calculatedValues, setCalculatedValues] = useState([]);
     const [formErrors, setFormErrors] = useState({
-        apiError: "",
+        submitError: "",
         cashValuesError: "",
         lowBoundDiscRateError: "",
         upBoundDiscRateError: "",
@@ -20,7 +22,40 @@ export default function DataEntryForm() {
         });
 
     const callCalculate = () => {
+        if (validateParams() === false) {
+            return;
+        }
+        setFormErrors({
+            ...formErrors, submitError: ""
+        });
         fetchPost();
+    }
+
+    const validateParams = () => {
+        const diff = upBoundDiscRate - lowBoundDiscRate;
+        let numberOfIcns = Math.ceil(diff / discRateIncrement);
+        if (numberOfIcns > maxColumns) {
+            setFormErrors({
+                ...formErrors, submitError: `This is a test application and it does not support more than ${maxColumns} columns for the output`
+            });
+            return false;
+        }
+
+        if (cashValues === "" || cashValues.length === 0) {
+            setFormErrors({
+                ...formErrors, submitError: "Please enter cash values"
+            });
+            return false;
+        }
+
+        const cashArray = cashValues.split(',');
+        if (cashArray && cashArray.length > maxCashflows) {
+            setFormErrors({
+                ...formErrors, submitError: `This is a test application and it does not support more than ${maxCashflows} cash flows`
+            });
+            return false;
+        }
+
     }
 
     const fetchPost = async () => {
@@ -37,7 +72,7 @@ export default function DataEntryForm() {
             setCalculatedValues(response.data);
         } catch (error) {
             setFormErrors({
-                ...formErrors, apiError: error.message
+                ...formErrors, submitError: error.message
             });
         }
     };
@@ -119,8 +154,8 @@ export default function DataEntryForm() {
     return (
         <div style={divStyle}>
             <h4>Net Present Values</h4>
-            {formErrors.apiError && (
-                <p className="text-danger">{formErrors.apiError}</p>
+            {formErrors.submitError && (
+                <p className="text-danger">{formErrors.submitError}</p>
             )}
             <Form>
                 <Form.Group>

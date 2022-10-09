@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NetPresentValue.Service\NetPresentValue.Service.csproj" />
-    <ProjectReference Include="..\Weather.Persistence\NetPresentValue.Service.csproj" />
   </ItemGroup>
 
 </Project>

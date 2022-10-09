@@ -5,17 +5,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Serilog;
-using Serilog.Configuration;
-using GlobalWeatherReact.Services;
+using NetPresentValue.UI.Services;
 
-namespace GlobalWeatherReact
+namespace NetPresentValue.UI
 {
     public class Startup
     {
